@@ -11,6 +11,7 @@ app.use(express.json());
 
 // Aquí luego agregaremos las rutas
 app.use('/api/usuarios', require('./routes/usuario.routes'));
+app.use('/api/productos', require('./routes/producto.routes'));
 
 (async () => {
   await connectMongo();

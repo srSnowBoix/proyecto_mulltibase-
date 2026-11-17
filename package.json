@@ -1,7 +1,7 @@
 {
   "name": "proyectomulltibase",
   "version": "1.0.0",
-  "description": "",
+  "description": "Web Service multibase: PostgreSQL + MongoDB + Redis",
   "main": "index.js",
   "scripts": {
   "start": "node src/app.js",

@@ -28,3 +28,12 @@ CREATE TABLE IF NOT EXISTS pedidos (
   updated_at TIMESTAMP DEFAULT NOW(),
   deleted_at TIMESTAMP NULL
 );
+
+-- Detalle de cada pedido (productos y cantidades comprados)
+CREATE TABLE IF NOT EXISTS pedido_items (
+  id SERIAL PRIMARY KEY,
+  pedido_id INTEGER NOT NULL REFERENCES pedidos(id),
+  producto_id INTEGER NOT NULL REFERENCES productos(id),
+  cantidad INTEGER NOT NULL CHECK (cantidad > 0),
+  precio_unitario NUMERIC(10,2) NOT NULL
+);

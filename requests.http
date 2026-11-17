@@ -1,0 +1,130 @@
+### Peticiones de ejemplo (extensión "REST Client" de VS Code)
+### Ejecútalas en orden: primero se crean usuario y productos.
+@host = http://localhost:3000/api
+
+### ---------------- USUARIOS (PostgreSQL) ----------------
+POST {{host}}/usuarios
+Content-Type: application/json
+
+{ "nombre": "Ana", "email": "ana@correo.com", "password": "1234" }
+
+###
+GET {{host}}/usuarios
+
+###
+PATCH {{host}}/usuarios/1
+Content-Type: application/json
+
+{ "nombre": "Ana María" }
+
+###
+DELETE {{host}}/usuarios/1
+
+### ---------------- PRODUCTOS (PostgreSQL) ----------------
+POST {{host}}/productos
+Content-Type: application/json
+
+{ "nombre": "Laptop", "descripcion": "15 pulgadas", "precio": 12500.50, "stock": 10 }
+
+###
+POST {{host}}/productos
+Content-Type: application/json
+
+{ "nombre": "Mouse", "descripcion": "USB", "precio": 150, "stock": 30 }
+
+###
+GET {{host}}/productos
+
+###
+PATCH {{host}}/productos/1
+Content-Type: application/json
+
+{ "precio": 11999.99 }
+
+### ---------------- PEDIDOS (PostgreSQL) ----------------
+POST {{host}}/pedidos
+Content-Type: application/json
+
+{ "usuario_id": 1, "items": [ { "producto_id": 1, "cantidad": 2 }, { "producto_id": 2, "cantidad": 1 } ] }
+
+###
+GET {{host}}/pedidos
+
+###
+GET {{host}}/pedidos?usuario_id=1&estado=pendiente
+
+###
+PATCH {{host}}/pedidos/1
+Content-Type: application/json
+
+{ "estado": "pagado" }
+
+###
+DELETE {{host}}/pedidos/1
+
+### ---------------- RESEÑAS (MongoDB) ----------------
+POST {{host}}/resenas
+Content-Type: application/json
+
+{ "producto_id": 1, "usuario_id": 1, "calificacion": 5, "comentario": "Excelente producto" }
+
+###
+GET {{host}}/resenas?producto_id=1
+
+### Reemplaza <ID> por el _id que devolvió el POST
+GET {{host}}/resenas/<ID>
+
+###
+PATCH {{host}}/resenas/<ID>
+Content-Type: application/json
+
+{ "calificacion": 4, "comentario": "Muy bueno" }
+
+###
+DELETE {{host}}/resenas/<ID>
+
+### ---------------- SESIONES (Redis) ----------------
+# @name login
+POST {{host}}/sesiones
+Content-Type: application/json
+
+{ "email": "ana@correo.com", "password": "1234" }
+
+###
+@token = {{login.response.body.token}}
+
+###
+GET {{host}}/sesiones
+
+###
+GET {{host}}/sesiones/{{token}}
+
+###
+PATCH {{host}}/sesiones/{{token}}
+Content-Type: application/json
+
+{ "datos": { "tema": "oscuro" } }
+
+###
+DELETE {{host}}/sesiones/{{token}}
+
+### ---------------- CARRITO (Redis) ----------------
+POST {{host}}/carrito
+Content-Type: application/json
+
+{ "usuario_id": 1, "producto_id": 1, "cantidad": 2 }
+
+###
+GET {{host}}/carrito/1
+
+###
+GET {{host}}/carrito
+
+###
+PATCH {{host}}/carrito/1
+Content-Type: application/json
+
+{ "producto_id": 1, "cantidad": 3 }
+
+###
+DELETE {{host}}/carrito/1
